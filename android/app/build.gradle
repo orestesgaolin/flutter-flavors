@@ -53,6 +53,27 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "flavor-type"
+
+    productFlavors {
+        dev {
+            dimension "flavor-type"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            manifestPlaceholders = [appName: "Flavor DEV"]
+        }
+        tst {
+            dimension "flavor-type"
+            applicationIdSuffix ".test"
+            versionNameSuffix "-test"
+            manifestPlaceholders = [appName: "Flavor TST"]
+        }
+        prod {
+            dimension "flavor-type"
+            manifestPlaceholders = [appName: "Flavor"]
+        }
+    }
 }
 
 flutter {
