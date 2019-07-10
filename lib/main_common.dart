@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flavors/app_config.dart';
 
-void main() => runApp(MyApp());
+void mainCommon(AppConfig config) => runApp(MyApp(config));
 
 class MyApp extends StatelessWidget {
+  MyApp(this.config);
+
+  final AppConfig config;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter: ${config.flavor}'),
     );
   }
 }
