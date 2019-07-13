@@ -1,0 +1,46 @@
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Submit a new build to AppCenter"
+  lane :test do
+    # add_badge(dark: true)
+    register_devices(
+        devices_file: "fastlane/devices.txt",
+        team_id: ENV["FASTLANE_TEAM"],
+        username: ENV["FASTLANE_USERNAME"]
+    )
+    match(
+      type: "adhoc",
+      force_for_new_devices: true,
+    )
+    automatic_code_signing(
+      use_automatic_signing: false
+    )
+    update_project_provisioning(
+      profile: ENV["sigh_com.flutter.flutterflavors.test_adhoc_profile-path"],
+      build_configuration: "Release-tst",
+      code_signing_identity: "iPhone Distribution"
+    )
+    build_app(
+      scheme: "tst",
+      configuration: "Release-tst",
+      xcargs: "-allowProvisioningUpdates",
+      export_options: {
+        signingStyle: "manual",
+        method: "ad-hoc",
+        provisioningProfiles: {
+          "com.flutter.flutterflavors.test": "match AdHoc com.flutter.flutterflavors.test",
+        }
+      },
+      output_name: "Runner.ipa"
+    )
+    # upload to AppCenter or anywhere else
+  end
+
+  desc "Deploy a new version to the AppStore"
+  lane :prod do
+
+  end
+end

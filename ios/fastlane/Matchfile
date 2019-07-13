@@ -1,0 +1,6 @@
+git_url(ENV["FASTLANE_GIT"])
+storage_mode("git")
+username(ENV["FASTLANE_USERNAME"])
+team_id(ENV["FASTLANE_TEAM"])
+app_identifier(ENV["APP_NAME"])
+type("development")
